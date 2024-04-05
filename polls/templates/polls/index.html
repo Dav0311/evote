@@ -1,0 +1,52 @@
+{% extends 'polls/layout.html'%}
+{% load static %}
+
+{% block body %}
+<div class="welcome">
+  <h1>welcome to E-VOTE!</h1>
+  <h4><i> <span>Democracy By The People</span></i></h4>
+</div>
+
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, dignissimos iure eaque architecto earum at laboriosam libero neque nemo, reiciendis numquam delectus molestias explicabo vero deleniti quis non facilis aliquid.</p>
+<br>
+<div class="content">
+    <div class="image">
+      <img src="{% static 'polls/vote2.jpg'%}"  width="90%" height="300px" alt="" srcset="">
+    </div>
+    <br>
+    <div class="text">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex praesentium nobis quasi enim consequatur explicabo. Laudantium quidem expedita, architecto officiis asperiores commodi aspernatur eum laborum fuga nobis, autem ipsam consectetur.</p>
+    </div>
+<br>
+   
+
+    <div class="card-group">
+        <div class="card">
+          <img src="{% static 'polls/vote.jpg' %}">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="{% static 'polls/vote.jpg' %}">
+          <div class="card-body">
+            
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="{% static 'polls/vote.jpg' %}">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+</div>
+
+{% endblock %}

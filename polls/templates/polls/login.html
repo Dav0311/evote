@@ -1,0 +1,42 @@
+{% extends 'polls/layout.html'%}
+{% load static %}
+
+{% block body %}
+
+<div class="content">
+    <div>
+        <h3>login into system.</h3>
+        <ul>
+            <li>login using the user information</li>
+            <li>if oyu dont have an account please create one</li>
+            <li>if all has failed please conatact and admin for assistance</li>
+        </ul>
+    </div>
+    
+    <div class="form">
+       
+        <form id="form" action="{% url 'login' %}" method="post">
+            <legend>Log In</legend>
+            <br><hr>
+            {% csrf_token %}
+            <div>
+                <input id="username" type="text" name="username" placeholder="username">
+            </div>
+            <div>
+                <input  id="password" type="password" name="password" placeholder="password">
+            </div>
+            
+            <input type="submit" value="login">
+            {% if message %}
+            <div class="message">     
+                <div class="alert alert-info" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+            {% endif  %}
+        </form>
+    </div>
+    <br>
+    <br>
+</div>
+{% endblock %}

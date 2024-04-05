@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Initial style for the .welcome div */
+.welcome {
+    text-align: center; /* Initially center-align the content */
+    opacity: 0; /* Initially set the opacity to 0 */
+    transform: translateX(-100%); /* Initially move the div to the left */
+    animation: slideIn 1s forwards; /* Apply the animation with a 1s duration */
+  }
+  
+  /* Keyframes animation for the sliding effect */
+  @keyframes slideIn {
+    0% {
+      opacity: 0; /* Start with opacity 0 */
+      transform: translateX(-100%); /* Start from the left */
+    }
+    50% {
+        opacity: 0.5; /* End with opacity 1 */
+        transform: translateX(0); /* Move to the center */
+      }
+    100% {
+      opacity: 1; /* End with opacity 1 */
+      transform: translateX(0); /* Move to the center */
+    }
+  }
+  
+i{
+    font-weight: 400;
+    font-size: 250;
+    color: #007bff;
+    padding-bottom: 5px;
+    border-bottom: 2.5px solid blue;
+}
+
+
+.form{
+    width: 100%;
+    margin: 10vh auto 0 auto;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    display: block;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+
+  input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+input{
+    width: 300px;
+  padding: 10px;
+  margin: 10px;
+   }
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+ 
+.message {
+    margin-top: 20px;
+  }
+
+#container{
+    width: 200px;
+    height: 50px;
+   
+    position: relative;
+}
+
+#blue{
+    width: 0;
+    height: 100%;
+    background-color: rgb(49, 116, 241);
+    float: left;
+    transition: width 0.3s ease-in-out;
+}
+
+#red{
+    width: 0;
+    height: 100%;
+    background-color: red;
+    float: left;
+    transition: width 0.3s ease-in-out;
+}

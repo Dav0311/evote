@@ -1,0 +1,41 @@
+{% extends 'polls/layout.html'%}
+{% load static %}
+
+{% block body %}
+<div class="content">
+    <div>
+        <h3>register student</h3>
+    </div>
+    <div class="form">
+        <form action="{% url 'voters'%}">
+            {% csrf_token %}
+            <div>
+                <input type="text" placeholder="firstname">
+            </div>
+            <div>
+                <input type="text" placeholder="lastname">
+            </div>
+            <div>
+                <input type="text" placeholder="registration number">
+            </div>
+            <div>
+                <input type="file" name="image" id="image">
+            </div>
+            <br>
+            <div>
+                <input type="submit">  
+            </div>
+        <br>
+            {% if message %}
+            <div class="message">     
+                <div class="alert alert-info" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+   
+</div>
+
+{% endblock %}

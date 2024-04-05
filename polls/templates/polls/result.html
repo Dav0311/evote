@@ -1,0 +1,30 @@
+{% extends 'polls/layout.html'%}
+{% load static %}
+
+{% block body %}
+<h4>results</h4>
+<div class="content">
+    <div>
+        <h3>Current Polls</h3>
+    </div>
+    <div class="context">
+        {% for candidate in candidates %}
+        <div class="candidate">
+            <p>{{ candidate.firstname }}   {{ candidate.lastname }}  
+     <br>
+            <strong>Votes:</strong> <span class="vote-count">{{ candidate.vote_count }}</span></p>
+        </div>
+        <br>
+        <div class="container">
+            <div class="blue"></div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="tally">
+       
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

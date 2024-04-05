@@ -1,0 +1,44 @@
+{% extends 'polls/layout.html' %}
+
+{% block body %}
+<div class="content">
+    <div>
+        <h3>Register electral candidate.</h3>
+    </div>
+    <div class="form">
+       
+       
+        <form action="{% url 'candidates' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input">
+                <input type="text" name="firstname" placeholder="Candidate first name">
+            </div>
+            <div class="input">
+                <input type="text" name="lastname" placeholder="Candidate last name">
+            </div>
+            <div class="input">
+                <input type="text" name="registrationNo" placeholder="Registration No.">
+            </div>
+            <div class="input">
+                <input type="file" name="image" id="image">
+            </div>
+            <br>
+            <div class="input">
+                <input type="submit" value="Add Candidate"> 
+            </div>
+    
+            {% if message %}
+            <div class="message">     
+                <div class="alert alert-info" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+   
+   
+</div>
+<br>
+<br>
+{% endblock %}

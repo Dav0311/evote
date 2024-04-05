@@ -1,0 +1,30 @@
+{% extends 'polls/layout.html' %}
+{% load static %}
+
+{% block body %}
+<h4>cast your safe votes</h4>
+
+<div class="content">
+    <div>
+        <h3>Election Polls</h3>
+    </div>
+    <div class="form">
+        <form method="post" action="{% url 'vote' %}">
+            {% csrf_token %}
+            <fieldset>candidates</fieldset>
+            
+            {% for candidate in candidates %}
+            <div class="candidate">
+                <img src="{{ candidate.image.url }}" alt="">
+                <p>{{ candidate.firstname }}</p>
+                <p>{{ candidate.lastname }}</p>
+                <p>{{ candidate.registrationNo }}</p>
+                <button type="submit"> VOTE </button>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+
+</div>
+
+
