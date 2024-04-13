@@ -1,30 +1,26 @@
-{% extends 'polls/layout.html'%}
+{% extends 'polls/layout.html' %}
 {% load static %}
 
 {% block body %}
-<h4>results</h4>
+<h4 class="mt-4">Results</h4>
 <div class="content">
     <div>
         <h3>Current Polls</h3>
     </div>
     <div class="context">
         {% for candidate in candidates %}
-        <div class="candidate">
-            <p>{{ candidate.firstname }}   {{ candidate.lastname }}  
-     <br>
-            <strong>Votes:</strong> <span class="vote-count">{{ candidate.vote_count }}</span></p>
-        </div>
-        <br>
-        <div class="container">
-            <div class="blue"></div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ candidate.firstname }} {{ candidate.lastname }}</h5>
+                <p class="card-text">
+                    <strong>Votes:</strong> <span class="vote-count">{{ candidate.vote_count }}</span>
+                </p>
+                <div class="chart-container">
+                    <canvas id="chart-{{ candidate.id }}" width="100" height="50"></canvas>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
-    
-    <div class="tally">
-       
-    </div>
 </div>
-<br>
-<br>
 {% endblock %}

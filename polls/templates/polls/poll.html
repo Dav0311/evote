@@ -2,29 +2,31 @@
 {% load static %}
 
 {% block body %}
-<h4>cast your safe votes</h4>
+<div class="container mt-4">
+    <h4>Cast Your Safe Votes</h4>
 
-<div class="content">
-    <div>
-        <h3>Election Polls</h3>
-    </div>
-    <div class="form">
-        <form method="post" action="{% url 'vote' %}">
-            {% csrf_token %}
-            <fieldset>candidates</fieldset>
-            
-            {% for candidate in candidates %}
-            <div class="candidate">
-                <img src="{{ candidate.image.url }}" alt="">
-                <p>{{ candidate.firstname }}</p>
-                <p>{{ candidate.lastname }}</p>
-                <p>{{ candidate.registrationNo }}</p>
-                <button type="submit"> VOTE </button>
+    <div class="content">
+        <div>
+            <h3>Election Polls</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" action="{% url 'vote' %}">
+                    {% csrf_token %}
+                    <fieldset class="mb-3">
+                        <legend>Candidates</legend>
+                        {% for candidate in candidates %}
+                        <div class="candidate mb-3">
+                            <img src="{{ candidate.image.url }}" class="img-fluid rounded-circle" alt="{{ candidate.firstname }} {{ candidate.lastname }}">
+                            <p class="mt-2"><strong>{{ candidate.firstname }} {{ candidate.lastname }}</strong></p>
+                            <p class="text-muted">{{ candidate.registrationNo }}</p>
+                            <button type="submit" class="btn btn-primary">Vote</button>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                </form>
             </div>
-            {% endfor %}
-        </form>
+        </div>
     </div>
-
 </div>
-
-
+{% endblock %}

@@ -7,13 +7,13 @@ from django.conf.urls.static import static
 App_name ="polls"
 
 urlpatterns = [
-  path('', views.index, name="index"),
-  path('login/', views.login_view, name="login"),
+  path('/', views.index, name="index"),
+  path('', views.login_view, name="login"),
   path('logout/', views.logout_view, name="logout"),
   #path('register/', views.register_fingerprint, name='register_fingerprint'),
   path('addcandidate/', views.addcandidate_view, name="candidates"),
   path('addelection/', views.addelection_view, name="election"),
-  path('saddvoter/', views.addvoter_view, name="voters"),
+  path('addvoter/', views.addvoter_view, name="voters"),
   path('results/', views.result_view, name="result")
 ]
 

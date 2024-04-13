@@ -3,28 +3,25 @@
 {% block body %}
 <div class="content">
     <div>
-        <h3>Register electral candidate.</h3>
+        <h3>Register Electoral Candidate</h3>
     </div>
     <div class="form">
-       
-       
         <form action="{% url 'candidates' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="input">
-                <input type="text" name="firstname" placeholder="Candidate first name">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="firstname" placeholder="Candidate First Name">
             </div>
-            <div class="input">
-                <input type="text" name="lastname" placeholder="Candidate last name">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="lastname" placeholder="Candidate Last Name">
             </div>
-            <div class="input">
-                <input type="text" name="registrationNo" placeholder="Registration No.">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="registrationNo" placeholder="Registration No.">
             </div>
-            <div class="input">
-                <input type="file" name="image" id="image">
+            <div class="mb-3">
+                <input type="file" class="form-control" name="image" id="image">
             </div>
-            <br>
-            <div class="input">
-                <input type="submit" value="Add Candidate"> 
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Add Candidate</button>
             </div>
     
             {% if message %}
@@ -36,9 +33,5 @@
             {% endif %}
         </form>
     </div>
-   
-   
 </div>
-<br>
-<br>
 {% endblock %}

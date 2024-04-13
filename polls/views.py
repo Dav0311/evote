@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Candidate, Vote
+from .models import Candidate, Vote, Student
 from django.db.models import Count
 from .models import FingerprintData  
-#import fingerprint_sensor_library 
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -12,7 +12,15 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    return render(request, "polls/index.html")
+    candidates = Candidate.objects.annotate(vote_count=Count('id'))
+    students = Student.objects.annotate(total=Count('id'))
+
+    context ={
+        "candidates": candidates,
+        "students": students
+    }
+    return render(request, "polls/index.html", context)
+
 
 def login_view(request):
     if request.method == "POST":
@@ -27,6 +35,26 @@ def login_view(request):
                 "message": "Invalid user credentials. Please register as a user."
             })
     return render(request, "polls/login.html")
+
+
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page
+                return redirect('addcandidate')
+    else:
+        form = UserCreationForm()
+    return render(request, 'polls/signup.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)
@@ -49,7 +77,7 @@ def logout_view(request):
 #     return render(request, 'polls/addvoters.html')
 
 
-@login_required 
+#@login_required 
 def addcandidate_view(request):
     if request.method == 'POST' and request.FILES.get('image'):
         firstname = request.POST.get('firstname')
@@ -74,7 +102,8 @@ def addcandidate_view(request):
     return render(request, "polls/addcandidate.html")
 
 
-@login_required 
+
+#@login_required 
 def addelection_view(request):
     candidates = Candidate.objects.all()  # Use 'candidates' instead of 'candidate'
     return render(request, "polls/addelection.html", {
@@ -97,7 +126,8 @@ def addelection_view(request):
 #         return render(request, 'polls/addelection.html', {
 #             'votemessage': 'Your vote has been saved.'
 #         })
-@login_required
+
+#@login_required 
 def vote(request):
     if request.method == 'POST':
         candidate_id = request.POST.get('choice')  # Get the selected candidate's ID
@@ -117,7 +147,8 @@ def vote(request):
         "message": 'Failed to confirm your vote'
     })  # Replace with your appropriate URL
 
-@login_required 
+
+#@login_required 
 def addvoter_view(request):
     if request.method == 'POST' and request.FILES.get('image'):
         firstname = request.POST.get('firstname')
@@ -151,7 +182,8 @@ def result_view(request):
     return render(request, 'polls/result.html', {'candidates': candidates})
 
 
-@login_required  # Ensure the user is logged in (authenticated) to cast a vote
+
+#@login_required  # Ensure the user is logged in (authenticated) to cast a vote
 def cast_vote(request, candidate_id):
     # Get the selected candidate
     candidate = get_object_or_404(Candidate, pk=candidate_id)

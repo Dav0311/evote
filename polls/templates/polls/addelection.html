@@ -2,50 +2,41 @@
 {% load static %}
 
 {% block body %}
-<h4>Elections</h4>
+<h4 class="mt-4">Elections</h4>
 <div class="content">
 
     <div class="form">
         <form method="post" action="{% url 'result' %}">
             {% csrf_token %}
-            <fieldset>candidates</fieldset>
+            <fieldset class="mb-3">Candidates</fieldset>
             
             {% for candidate in candidates %}
-            <div class="candidate">
-                <img src="{{ candidate.image.url }}" width="200px" height="200px" alt="">
-                <p><strong>First name : </strong>{{ candidate.firstname }}</p>
-                <p><strong>Last name : </strong>{{ candidate.lastname }}</p>
-                <p><strong>Post : </strong>{{ candidate.post }}</p>
-                <p><strong>Registration no. : </strong>{{ candidate.registrationNo }}</p>
-                <br>
-                <input type="checkbox" name="choice" value="{{ candidate.id }}" id="choice_{{ candidate.id }}">
-               
+            <div class="card mb-3">
+                <div class="card-body">
+                    <img src="{{ candidate.image.url }}" class="card-img-top" alt="Candidate Image">
+                    <p class="card-text"><strong>First Name: </strong>{{ candidate.firstname }}</p>
+                    <p class="card-text"><strong>Last Name: </strong>{{ candidate.lastname }}</p>
+                    <p class="card-text"><strong>Post: </strong>{{ candidate.post }}</p>
+                    <p class="card-text"><strong>Registration No.: </strong>{{ candidate.registrationNo }}</p>
+                    <input type="checkbox" name="choice" value="{{ candidate.id }}" id="choice_{{ candidate.id }}" class="form-check-input mt-3">
+                </div>
             </div>
-           <br>
-            <input type="submit" value="confirm vote">
-            <br>
-            <hr>
             {% endfor %}
-            <br>
+            
+            <button type="submit" class="btn btn-primary mb-3">Confirm Vote</button>
+            
+            <hr>
+            
             {% if message %}
-            <div class="message">     
-                <div class="alert alert-info" role="alert">
-                    <p>{{ votemessage }}</p>
-                </div>
-        </div>      
-            {% else  %}
-            <div class="message">     
-                <div class="alert alert-info" role="alert">
-                    <p>{{ message }}</p>
-                </div>
+            <div class="alert alert-info" role="alert">
+                <p>{{ votemessage }}</p>
             </div>
-            {% endif  %}
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                <p>{{ message }}</p>
+            </div>
+            {% endif %}
         </form>
     </div>
 </div>
-<br>
-<br>
-
-
-
 {% endblock %}

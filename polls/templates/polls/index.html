@@ -1,28 +1,27 @@
-{% extends 'polls/layout.html'%}
+{% extends 'polls/layout.html' %}
 {% load static %}
 
 {% block body %}
-<div class="welcome">
-  <h1>welcome to E-VOTE!</h1>
-  <h4><i> <span>Democracy By The People</span></i></h4>
+<div class="welcome text-center mt-4">
+  <h1>Welcome to E-VOTE!</h1>
+  <h4><i><span>Democracy By The People</span></i></h4>
 </div>
 
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, dignissimos iure eaque architecto earum at laboriosam libero neque nemo, reiciendis numquam delectus molestias explicabo vero deleniti quis non facilis aliquid.</p>
+<p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, dignissimos iure eaque architecto earum at laboriosam libero neque nemo, reiciendis numquam delectus molestias explicabo vero deleniti quis non facilis aliquid.</p>
 <br>
 <div class="content">
-    <div class="image">
-      <img src="{% static 'polls/vote2.jpg'%}"  width="90%" height="300px" alt="" srcset="">
+    <div class="image text-center">
+      <img src="{% static 'polls/vote2.jpg'%}" class="img-fluid" alt="Vote Image">
     </div>
     <br>
-    <div class="text">
+    <div class="text mt-4">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex praesentium nobis quasi enim consequatur explicabo. Laudantium quidem expedita, architecto officiis asperiores commodi aspernatur eum laborum fuga nobis, autem ipsam consectetur.</p>
     </div>
-<br>
-   
+    <br>
 
     <div class="card-group">
         <div class="card">
-          <img src="{% static 'polls/vote.jpg' %}">
+          <img src="{% static 'polls/vote.jpg' %}" class="card-img-top" alt="Vote Image">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -30,7 +29,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'polls/vote.jpg' %}">
+          <img src="{% static 'polls/vote.jpg' %}" class="card-img-top" alt="Vote Image">
           <div class="card-body">
             
             <h5 class="card-title">Card title</h5>
@@ -39,7 +38,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="{% static 'polls/vote.jpg' %}">
+          <img src="{% static 'polls/vote.jpg' %}" class="card-img-top" alt="Vote Image">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
