@@ -24,12 +24,16 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  {% if user.is_authenticated and user.is_superuser %}
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'candidates'%}"> Add candidates</a>
                   </li>
+                  {% endif %}
+                  {% if user.is_authenticated and user.is_superuser %}
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'voters'%}"> Add voters</a>
                   </li>
+                  {% endif %}
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'election'%}"> Add election</a>
                   </li>
@@ -64,48 +68,51 @@
           {% block body %}
           
           {% endblock %}
-          <div class="card text-center">
-            <div class="card-header">
-              Featured
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="card-footer text-muted">
-              2 days ago
-            </div>
-          </div>
+         
     </div>
-    <!-- charts -->
-    <script>
-    
- 
   
+    
 
+    {% block scripts %}
+  <script>
+    // Collect data for all candidates
+    const candidateData = [
+      {% for candidate in candidates %}
+        {
+          label: '{{ candidate.firstname }} {{ candidate.lastname }}',
+          data: {{ candidate.vote_counts }},
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        },
+        {% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ];
 
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [ {% for candidate in candidates%} '{{candidate.firstname}}', {% endfor %}],
-      datasets: [{
-        label: '# of Votes',
-        data: [{% for candidate in candidates%} {{candidate.vote_count}}, {% endfor %}],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    // Initialize a pie chart
+    const ctx = document.getElementById('myPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: [{% for candidate in candidates %}'{{ candidate.firstname }} {{ candidate.lastname }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+        datasets: candidateData
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            display: false
+          }],
+          xAxes: [{
+            display: false
+          }]
         }
       }
-    }
-  });
-</script>
+    });
+  </script>
+{% endblock %}
+
+ 
+
 
 
 

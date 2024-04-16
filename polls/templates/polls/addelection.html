@@ -1,10 +1,10 @@
+<!-- polls/result.html -->
 {% extends 'polls/layout.html' %}
 {% load static %}
 
 {% block body %}
 <h4 class="mt-4">Elections</h4>
 <div class="content">
-
     <div class="form">
         <form method="post" action="{% url 'result' %}">
             {% csrf_token %}
@@ -13,7 +13,8 @@
             {% for candidate in candidates %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <img src="{{ candidate.image.url }}" class="card-img-top" alt="Candidate Image">
+                    <!-- Add a CSS class to adjust the image size -->
+                    <img src="{{ candidate.image.url }}" class="card-img-top candidate-image" alt="Candidate Image">
                     <p class="card-text"><strong>First Name: </strong>{{ candidate.firstname }}</p>
                     <p class="card-text"><strong>Last Name: </strong>{{ candidate.lastname }}</p>
                     <p class="card-text"><strong>Post: </strong>{{ candidate.post }}</p>

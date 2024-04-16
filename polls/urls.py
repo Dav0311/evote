@@ -14,7 +14,8 @@ urlpatterns = [
   path('addcandidate/', views.addcandidate_view, name="candidates"),
   path('addelection/', views.addelection_view, name="election"),
   path('addvoter/', views.addvoter_view, name="voters"),
-  path('results/', views.result_view, name="result")
+  path('results/', views.result_view, name="result"),
+  path('studentlogin/', views.student_login_view, name="studentlogin")
 ]
 
 

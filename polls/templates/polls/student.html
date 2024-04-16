@@ -1,0 +1,32 @@
+{% extends 'polls/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="content">
+    <div>
+        <h3>Student login</h3>
+    </div>
+    <div class="context">
+        
+        <div class="card mb-3">
+            <div class="card-body">
+               <form action="{% url 'studentlogin' %}" method="post">
+                {% csrf_token %}
+                {{form}}
+                <br>
+                <button type="submit" class="btn btn-primary">Login</button>
+               </form>
+            </div>
+            {% if message %}
+            <div class="message mt-3">     
+              <div class="alert alert-info" role="alert">
+                <p>{{ message }}</p>
+              </div>
+            </div>
+            {% endif %}
+        </div>
+       
+    </div>
+</div>
+{% endblock %}

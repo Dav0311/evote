@@ -3,12 +3,37 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Candidate, Vote, Student
 from django.db.models import Count
-from .models import FingerprintData  
+from django.urls import reverse
+from .models import FingerprintData 
+from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.backends import ModelBackend
+from .forms import StudentLoginForm 
 
 
 
+def student_login_view(request):
+    if request.method == "POST":
+        form = StudentLoginForm(request.POST)
+        if form.is_valid():
+            firstname = form.cleaned_data.get('firstname')
+            registrationNo = form.cleaned_data.get('registrationNo')
+            user = authenticate(request, firstname=firstname, registrationNo=registrationNo)
+            if user is not None:
+                login(request, user)
+                # Redirect to some page after successful login
+                return render(request, "polls/index.html")
+                
+            else:
+                # Handle invalid login credentials
+                return render(request, "polls/student.html", {
+                    "form": form,
+                    "message": "Invalid login credentials. Please try again."
+                })
+    else:
+        form = StudentLoginForm()
+    return render(request, "polls/student.html", {"form": form})
 
 # Create your views here.
 def index(request):
@@ -128,6 +153,7 @@ def addelection_view(request):
 #         })
 
 #@login_required 
+
 def vote(request):
     if request.method == 'POST':
         candidate_id = request.POST.get('choice')  # Get the selected candidate's ID
@@ -140,13 +166,13 @@ def vote(request):
         candidate.vote_count += 1
         candidate.save()
         
-        return render(request, 'polls/addelection.html', {'votemessage': 'Your vote has been saved.'})
+        # Redirect to a different URL after successful vote
+        return redirect('polls:addelection')  # Replace 'polls:addelection' with your appropriate URL name
 
     # Handle cases where the form is not submitted via POST
-    return HttpResponseRedirect(reverse('polls/poll.html'), {
+    return HttpResponseRedirect(reverse('polls:poll.html'), {
         "message": 'Failed to confirm your vote'
-    })  # Replace with your appropriate URL
-
+    })  
 
 #@login_required 
 def addvoter_view(request):
@@ -174,22 +200,53 @@ def addvoter_view(request):
 
 
 
+# def result_view(request):
+#     # Assuming you have a Candidate model with a ForeignKey to votes
+#     candidates = Candidate.objects.annotate(vote_count=Count('vote'))
+
+#     # Render the template with the candidates queryset
+#     return render(request, 'polls/result.html', {'candidates': candidates})
+
+
+
+
 def result_view(request):
-    # Assuming you have a Candidate model with a ForeignKey to votes
-    candidates = Candidate.objects.annotate(vote_count=Count('vote'))
-
-    # Render the template with the candidates queryset
-    return render(request, 'polls/result.html', {'candidates': candidates})
-
-
+    candidates = Candidate.objects.all()
+    
+    # Count votes for each candidate
+    vote_counts = {}
+    for candidate in candidates:
+        vote_count = Vote.objects.filter(candidate=candidate).count()
+        vote_counts[candidate] = vote_count
+    
+    return render(request, 'polls/result.html', {'candidates': candidates, 'vote_counts': vote_counts})
 
 #@login_required  # Ensure the user is logged in (authenticated) to cast a vote
-def cast_vote(request, candidate_id):
-    # Get the selected candidate
-    candidate = get_object_or_404(Candidate, pk=candidate_id)
+# def cast_vote(request, candidate_id):
+#     # Get the selected candidate
+#     candidate = get_object_or_404(Candidate, pk=candidate_id)
     
-    # Create a new Vote instance and associate it with the logged-in student
-    Vote.objects.create(candidate=candidate, voter=request.user)
+#     # Create a new Vote instance and associate it with the logged-in student
+#     Vote.objects.create(candidate=candidate, voter=request.user)
     
-    # Redirect to a success page or display a success message
-    return redirect('success_page')  # Replace with your success page URL
+#     # Redirect to a success page or display a success message
+#     return redirect('success_page')
+
+def count_votes():
+    """
+    Function to count votes for each candidate.
+    Returns a dictionary where keys are candidate IDs and values are vote counts.
+    """
+    vote_counts = {}
+    for candidate in Candidate.objects.all():
+        vote_count = Vote.objects.filter(candidate=candidate).count()
+        vote_counts[candidate.id] = vote_count
+    return vote_counts  
+class StudentBackend(ModelBackend):
+    def authenticate(self, request, firstname=None, registrationNo=None):
+        try:
+            student = Student.objects.get(firstname=firstname, registrationNo=registrationNo)
+            return student
+        except Student.DoesNotExist:
+            return None
+

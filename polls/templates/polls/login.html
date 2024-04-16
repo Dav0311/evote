@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-vote</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    /* Add custom styles for the image */
+    .image img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
-  <div class="container d-flex justify-content-center mt-5">
+  <div class="container mt-5"> <!-- Removed d-flex justify-content-center class -->
     <div class="row">
-      <div class="col-md-8"> <!-- Increased the width to col-md-8 -->
+      <div class="col-md-6"> <!-- Set the width of the first column to col-md-6 -->
         <div class="card">
           <div class="card-body">
             <h3 class="card-title">Login into System</h3>
@@ -20,9 +28,8 @@
             </ul>
           </div>
         </div>
-      </div>
-      <div class="col-md-8"> <!-- Increased the width to col-md-8 -->
-        <div class="card">
+        
+        <div class="card mt-3"> <!-- Added margin top -->
           <div class="card-body">
             <form id="form" action="{% url 'login' %}" method="post">
               {% csrf_token %}
@@ -36,9 +43,13 @@
                   <label for="password" class="form-label">Password</label>
                   <input id="password" type="password" name="password" class="form-control" placeholder="Password">
                 </div>
+                <div>
+                  <a href="{% url 'studentlogin'%} "> Are you a student ?</a>
+                </div>
                 <button type="submit" class="btn btn-primary">Login</button>
               </fieldset>
             </form>
+            
             {% if message %}
             <div class="message mt-3">     
               <div class="alert alert-info" role="alert">
@@ -49,8 +60,12 @@
           </div>
         </div>
       </div>
+      <div class="col-md-6"> <!-- Set the width of the second column to col-md-6 -->
+        <div class="image">
+          <img src="{% static 'polls/logo.jpg' %}" alt="Logo" width="600" height="600">
+        </div>
+      </div>
     </div>
   </div>
 </body>
 </html>
-

@@ -4,6 +4,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.candidate-image {
+  max-width: 100px; 
+  height: auto; 
+}
+
 /* Initial style for the .welcome div */
 .welcome {
     text-align: center; /* Initially center-align the content */

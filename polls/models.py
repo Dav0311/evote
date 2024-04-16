@@ -34,3 +34,4 @@ class Vote(models.Model):
         return f"Vote for {self.candidate} by {self.voter_name}"
 
 
+
